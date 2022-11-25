@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Cell.h"
+#include "Coordinates.h"
+#include "RectangleSize.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +23,12 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+		std::vector<std::vector<Cell>> grid;
+		int columns{};
+		int rows{};
+
+		float width = ofGetWidth();
+		float height = ofGetHeight();
 		
 };

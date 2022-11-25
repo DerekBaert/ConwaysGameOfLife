@@ -1,8 +1,25 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
-void ofApp::setup(){
+void ofApp::setup()
+{
+	ofSetBackgroundColor(255);
+	rows = 10;
+	columns = 10;
 
+	float gridWidth{ width / columns };
+	float gridHeight{ height / rows };
+
+	for (int i = 0; i < rows; i++)
+	{
+		std::vector<Cell> row;
+		row.reserve(columns);
+		for (int j = 0; j < columns; j++)
+		{
+			row.push_back({{}});
+		}
+		grid.push_back(row);
+	}
 }
 
 //--------------------------------------------------------------
