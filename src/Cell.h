@@ -13,7 +13,18 @@ class Cell
 public:
 	Cell(Coordinates coordinates, RectangleSize size);
 
+	/// <summary>
+	/// Getters
+	/// </summary>
 	void deadAliveToggle();
+	void drawCell();
+
+	/// <summary>
+	/// Getters
+	/// </summary>
 	bool isAlive();
+	ofRectangle getRectangle();
+	
+
 };
 

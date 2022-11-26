@@ -17,6 +17,17 @@ class ofApp : public ofBaseApp{
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
+
+		/**
+		 * \brief Checks if the mouse is over the given cell
+		 * \param x X coordinate of cell
+		 * \param y Y coordinate of cell
+		 * \param width Width of cell
+		 * \param height Height of cell
+		 * \return 
+		 */
+		bool mouseInBounds(float x, float y, float width, float height);
+
 		void mouseReleased(int x, int y, int button);
 		void mouseEntered(int x, int y);
 		void mouseExited(int x, int y);
@@ -30,5 +41,7 @@ class ofApp : public ofBaseApp{
 
 		float width = ofGetWidth();
 		float height = ofGetHeight();
+		float gridWidth;
+		float gridHeight;
 		
 };
