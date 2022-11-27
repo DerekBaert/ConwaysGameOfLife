@@ -10,6 +10,9 @@ class ofApp : public ofBaseApp{
 	public:
 		void setup();
 		void update();
+		void killCheck(int row, int column);
+		void reviveCheck(int row, int column);
+		int  checkNeighbours(int row, int column);
 		void draw();
 
 		void keyPressed(int key);
@@ -43,5 +46,6 @@ class ofApp : public ofBaseApp{
 		float height = ofGetHeight();
 		float gridWidth;
 		float gridHeight;
+		bool start = false;
 		
 };
