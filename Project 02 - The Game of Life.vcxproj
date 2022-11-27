@@ -180,6 +180,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Intersection.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="src\Cell.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Intersection.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\Cell.h" />
     <ClInclude Include="src\Coordinates.h" />

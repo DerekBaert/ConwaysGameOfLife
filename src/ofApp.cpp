@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-	ofSetFrameRate(1);
+	ofSetFrameRate(4);
 	ofSetBackgroundColor(255);
 	rows = 50;
 	columns = 50;
@@ -29,6 +29,7 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+	toggleList.clear();
 	if(start)
 	{
 		for (int i = 0; i < rows; i++)
@@ -45,6 +46,11 @@ void ofApp::update()
 				}
 			}
 		}
+
+		for(Intersection position : toggleList)
+		{
+			grid[position.row][position.column].deadAliveToggle();
+		}
 	}
 }
 
@@ -54,7 +60,8 @@ void ofApp::killCheck(int row, int column)
 
 	if ((liveNeighbours < 2 || liveNeighbours > 3) && grid[row][column].isAlive())
 	{
-		grid[row][column].deadAliveToggle();
+		Intersection cellPosition{ row,column };
+		toggleList.push_back(cellPosition);
 	}
 }
 
@@ -65,7 +72,8 @@ void ofApp::reviveCheck(int row, int column)
 
 	if(liveNeighbours == 3 && !grid[row][column].isAlive())
 	{
-		grid[row][column].deadAliveToggle();
+		Intersection cellPosition{ row,column };
+		toggleList.push_back(cellPosition);
 	}
 }
 

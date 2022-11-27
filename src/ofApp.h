@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "Cell.h"
 #include "Coordinates.h"
+#include "Intersection.h"
 #include "RectangleSize.h"
 
 class ofApp : public ofBaseApp{
@@ -47,5 +48,6 @@ class ofApp : public ofBaseApp{
 		float gridWidth;
 		float gridHeight;
 		bool start = false;
+		vector<Intersection> toggleList;
 		
 };
