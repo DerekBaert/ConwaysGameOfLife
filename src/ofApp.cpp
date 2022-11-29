@@ -46,10 +46,11 @@ void ofApp::draw()
 	colorSlider.draw();
 
 	// Draw buttons
-	for(ofxButton button : buttons)
+	for(ofxButton& button : buttons)
 	{
 		button.draw();
 	}
+	//play.draw();
 
 	for (auto row : currentGen)
 	{
