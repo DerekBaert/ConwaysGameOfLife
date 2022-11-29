@@ -5,11 +5,12 @@ void ofApp::setup()
 {
 	ofSetFrameRate(4);
 	ofSetBackgroundColor(255);
-	generation.loadFont("pixel2.ttf", 20);
+	ofSetColor(0);
+	generation.loadFont("pixel2.ttf", 15);
 	rows = 50;
 	columns = 50;
 	headerBuffer = 50;
-	generationCount = 0;
+	generationCount = 1;
 	gridWidth = width / columns;
 	gridHeight = height / rows;
 	RectangleSize cellSize{ gridHeight, gridWidth };
@@ -31,7 +32,7 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	generation.drawStringCentered("Generation" + std::to_string(generationCount), 20, 10);
+	
 	nextGen = currentGen;
 	if(start)
 	{
@@ -139,6 +140,7 @@ int ofApp::checkNeighbours(int row, int column)
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 10);
 	for (auto row : currentGen)
 	{
 		for (Cell cell : row)
