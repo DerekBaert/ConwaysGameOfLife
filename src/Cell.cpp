@@ -22,8 +22,13 @@ void Cell::deadAliveToggle()
 	}
 }
 
-void Cell::drawCell()
+void Cell::drawCell(ofColor color)
 {
+
+	ofSetColor(color); // fill color
+	ofDrawRectangle(mRectangle);
+	ofNoFill();
+	ofSetColor(0); // contour (stroke) color  
 	ofDrawRectangle(mRectangle);
 }
 

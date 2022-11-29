@@ -5,10 +5,14 @@ void ofApp::setup()
 {
 	
 	ofSetBackgroundColor(255);
-	ofSetColor(0);
+	//ofSetColor(0);
 	frameSlider.setup("Frame rate: ", 1, 1, 4, 125, 15);
-	frameSlider.setPosition(width - 175, 10);
-	generation.loadFont("pixel2.ttf", 15);
+	frameSlider.setPosition(width - (frameSlider.getWidth() + 10), 10);
+	ofParameter<ofColor> color;
+	colorSlider.setup("Cell Color", ofColor(50, 50, 50), ofColor(0, 0), ofColor(200, 200));
+	colorSlider.setWidthElements(125);
+	colorSlider.setPosition(width - (colorSlider.getWidth() + 10), 25);
+	generation.load("pixel2.ttf", 15);
 	rows = 50;
 	columns = 50;
 	headerBuffer = 50;
@@ -62,11 +66,11 @@ void ofApp::draw()
 {
 	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 10);
 	frameSlider.draw();
+	colorSlider.draw();
 	for (auto row : currentGen)
 	{
 		for (Cell cell : row)
 		{
-			ofSetColor(0, 0, 0);
 			ofRectangle cellRect{ cell.getRectangle() };
 			if (cell.isAlive())
 			{
@@ -76,9 +80,10 @@ void ofApp::draw()
 			{
 				ofNoFill();
 			}
-			cell.drawCell();
+			cell.drawCell(colorSlider);
 		}
 	}
+	ofSetColor(0);
 }
 
 void ofApp::killCheck(int row, int column)
@@ -175,24 +180,6 @@ void ofApp::keyPressed(int key)
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y )
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button)
-{
-
-}
-
-//--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
 	for (auto& row : currentGen)
@@ -212,40 +199,4 @@ void ofApp::mousePressed(int x, int y, int button)
 bool ofApp::mouseInBounds(float x, float y, float width, float height)
 {
 	return ofGetMouseX() > x && ofGetMouseX() < (x + width) && ofGetMouseY() > y && ofGetMouseY() < (y + height);
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo)
-{ 
-
 }
