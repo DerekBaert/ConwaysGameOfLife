@@ -52,23 +52,7 @@ void ofApp::draw()
 	}
 	//play.draw();
 
-	for (auto row : currentGen)
-	{
-		for (Cell cell : row)
-		{
-			ofRectangle cellRect{ cell.getRectangle() };
-			if (cell.isAlive())
-			{
-				ofFill();
-			}
-			else
-			{
-				ofNoFill();
-			}
-			cell.drawCell(colorSlider);
-		}
-	}
-	ofSetColor(0);
+	drawGrid();
 }
 
 void ofApp::killCheck(int row, int column)
@@ -214,23 +198,39 @@ void ofApp::stepThrough()
 }
 void ofApp::incrementColumns()
 {
-	columns++;
-	generateGrid();
+	if(!start)
+	{
+		columns++;
+		generateGrid();
+		drawGrid();
+	}
 }
 void ofApp::incrementRows()
 {
-	rows++;
-	generateGrid();
+	if (!start)
+	{
+		rows++;
+		generateGrid();
+		drawGrid();
+	}
 }
 void ofApp::decrementColumns()
 {
-	columns--;
-	generateGrid();
+	if (!start)
+	{
+		columns--;
+		generateGrid();
+		drawGrid();
+	}
 }
 void ofApp::decrementRows()
 {
-	rows--;
-	generateGrid();
+	if (!start)
+	{
+		rows--;
+		generateGrid();
+		drawGrid();
+	}
 }
 
 void ofApp::generateGrid()
@@ -243,6 +243,7 @@ void ofApp::generateGrid()
 	gridWidth = width / columns;
 	gridHeight = height / rows;
 	RectangleSize cellSize{ gridHeight, gridWidth };
+
 	currentGen.clear();
 	for (int y = 0; y < rows; y++)
 	{
@@ -318,4 +319,25 @@ void ofApp::createGui()
 	}
 
 	generation.load("pixel2.ttf", 15);
+}
+
+void ofApp::drawGrid()
+{
+	for (auto row : currentGen)
+	{
+		for (Cell cell : row)
+		{
+			ofRectangle cellRect{ cell.getRectangle() };
+			if (cell.isAlive())
+			{
+				ofFill();
+			}
+			else
+			{
+				ofNoFill();
+			}
+			cell.drawCell(colorSlider);
+		}
+	}
+	ofSetColor(0);
 }

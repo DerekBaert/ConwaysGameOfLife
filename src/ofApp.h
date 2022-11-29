@@ -13,10 +13,11 @@
 class ofApp : public ofBaseApp{
 
 	public:
-	void generateGrid();
-	void createGui();
+		void generateGrid();
+		void createGui();
 		void setup();
 		void update();
+		void drawGrid();
 		void killCheck(int row, int column);
 		void reviveCheck(int row, int column);
 		int  checkNeighbours(int row, int column);
