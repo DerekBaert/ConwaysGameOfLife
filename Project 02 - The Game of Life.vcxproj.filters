@@ -10,16 +10,10 @@
     <ClCompile Include="src\Cell.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Coordinates.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\ofApp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RectangleSize.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp">
@@ -51,9 +45,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Intersection.cpp">
-      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +113,10 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Intersection.h">
+    <ClInclude Include="src\ofxCenteredTrueTypeFont.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

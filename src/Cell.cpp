@@ -2,14 +2,24 @@
 
 #include "ofGraphics.h"
 
-Cell::Cell(Coordinates coordinates, RectangleSize size) : mPosition{ coordinates }, mSize{ size }, mIsAlive{ false }
+Cell::Cell(Coordinates coordinates, RectangleSize size) : mPosition{ coordinates }, mSize{ size }, status{ State::Dead }
 {
 	mRectangle = { coordinates.x, coordinates.y, size.width, size.height };
 }
 
 void Cell::deadAliveToggle()
 {
-	mIsAlive = !mIsAlive;
+	switch (status)
+	{
+	case State::Alive:
+		status = State::Dead;
+		break;
+	case State::Dead:
+		status = State::Alive;
+		break;
+	default:
+		break;
+	}
 }
 
 void Cell::drawCell()
@@ -19,7 +29,19 @@ void Cell::drawCell()
 
 bool Cell::isAlive()
 {
-	return mIsAlive;
+	bool isAlive;
+	switch(status)
+	{
+		case State::Alive:
+			isAlive = true;
+			break;
+		case State::Dead:
+			isAlive = false;
+			break;
+		default:
+			break;
+	}
+	return isAlive;
 }
 
 ofRectangle Cell::getRectangle()

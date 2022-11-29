@@ -180,12 +180,9 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Intersection.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="src\Cell.cpp" />
-    <ClCompile Include="src\Coordinates.cpp" />
-    <ClCompile Include="src\RectangleSize.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxColorPicker.cpp" />
@@ -198,10 +195,11 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Intersection.h" />
+    <ClInclude Include="enum.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\Cell.h" />
     <ClInclude Include="src\Coordinates.h" />
+    <ClInclude Include="src\ofxCenteredTrueTypeFont.h" />
     <ClInclude Include="src\RectangleSize.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />

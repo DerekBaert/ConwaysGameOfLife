@@ -5,9 +5,11 @@ void ofApp::setup()
 {
 	ofSetFrameRate(4);
 	ofSetBackgroundColor(255);
+	generation.loadFont("pixel2.ttf", 20);
 	rows = 50;
 	columns = 50;
-
+	headerBuffer = 50;
+	generationCount = 0;
 	gridWidth = width / columns;
 	gridHeight = height / rows;
 	RectangleSize cellSize{ gridHeight, gridWidth };
@@ -16,27 +18,28 @@ void ofApp::setup()
 	{
 		std::vector<Cell> row;
 		row.reserve(columns);
-		for (auto x = 0; x < columns; x++)
+		for (int x = 0; x < columns; x++)
 		{
-			Coordinates cellPosition{ x * gridWidth, y * gridHeight };
+			Coordinates cellPosition{ x * gridWidth, (y * gridHeight) + headerBuffer };
 			Cell cell{ cellPosition, cellSize };
 			row.push_back(cell);
 		}
-		grid.push_back(row);
+		currentGen.push_back(row);
 	}
 }
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	toggleList.clear();
+	generation.drawStringCentered("Generation" + std::to_string(generationCount), 20, 10);
+	nextGen = currentGen;
 	if(start)
 	{
 		for (int i = 0; i < rows; i++)
 		{
 			for (int j = 0; j < columns; j++)
 			{
-				if (grid[i][j].isAlive())
+				if (currentGen[i][j].isAlive())
 				{
 					killCheck(i, j);
 				}
@@ -46,22 +49,18 @@ void ofApp::update()
 				}
 			}
 		}
-
-		for(Intersection position : toggleList)
-		{
-			grid[position.row][position.column].deadAliveToggle();
-		}
+		generationCount++;
 	}
+	currentGen = nextGen;
 }
 
 void ofApp::killCheck(int row, int column)
 {
 	int liveNeighbours = checkNeighbours(row, column);
 
-	if ((liveNeighbours < 2 || liveNeighbours > 3) && grid[row][column].isAlive())
+	if ((liveNeighbours < 2 || liveNeighbours > 3) && currentGen[row][column].isAlive())
 	{
-		Intersection cellPosition{ row,column };
-		toggleList.push_back(cellPosition);
+		nextGen[row][column].deadAliveToggle();
 	}
 }
 
@@ -70,10 +69,9 @@ void ofApp::reviveCheck(int row, int column)
 {
 	int liveNeighbours = checkNeighbours(row, column);
 
-	if(liveNeighbours == 3 && !grid[row][column].isAlive())
+	if(liveNeighbours == 3 && !currentGen[row][column].isAlive())
 	{
-		Intersection cellPosition{ row,column };
-		toggleList.push_back(cellPosition);
+		nextGen[row][column].deadAliveToggle();
 	}
 }
 
@@ -88,31 +86,31 @@ int ofApp::checkNeighbours(int row, int column)
 		// Checking if there is a column to the west or if we are at the beginning
 		if (column - 1 >= 0)
 		{
-			liveNeighbours += grid[row - 1][column - 1].isAlive() ? 1 : 0;
+			liveNeighbours += currentGen[row - 1][column - 1].isAlive() ? 1 : 0;
 		}
 
 		// N
-		liveNeighbours += grid[row - 1][column].isAlive() ? 1 : 0;
+		liveNeighbours += currentGen[row - 1][column].isAlive() ? 1 : 0;
 
 		// NE
 		// Checking if there is a column to the east or if we are at the end.
 		if (column + 1 < columns)
 		{
-			liveNeighbours += grid[row - 1][column + 1].isAlive() ? 1 : 0;
+			liveNeighbours += currentGen[row - 1][column + 1].isAlive() ? 1 : 0;
 		}
 	}	
 
 	// W
 	if (column - 1 >= 0)
 	{
-		liveNeighbours += grid[row][column - 1].isAlive() ? 1 : 0;
+		liveNeighbours += currentGen[row][column - 1].isAlive() ? 1 : 0;
 	}
 
 
 	// E
 	if (column + 1 < columns)
 	{
-		liveNeighbours += grid[row][column + 1].isAlive() ? 1 : 0;
+		liveNeighbours += currentGen[row][column + 1].isAlive() ? 1 : 0;
 	}
 
 	// Check if there is a row below the cell
@@ -121,16 +119,16 @@ int ofApp::checkNeighbours(int row, int column)
 		// SW
 		if (column - 1 >= 0)
 		{
-			liveNeighbours += grid[row + 1][column - 1].isAlive() ? 1 : 0;
+			liveNeighbours += currentGen[row + 1][column - 1].isAlive() ? 1 : 0;
 		}
 
 		// S
-		liveNeighbours += grid[row + 1][column].isAlive() ? 1 : 0;
+		liveNeighbours += currentGen[row + 1][column].isAlive() ? 1 : 0;
 
 		// SE
 		if (column + 1 < columns)
 		{
-			liveNeighbours += grid[row + 1][column + 1].isAlive() ? 1 : 0;
+			liveNeighbours += currentGen[row + 1][column + 1].isAlive() ? 1 : 0;
 		}
 	}
 
@@ -141,7 +139,7 @@ int ofApp::checkNeighbours(int row, int column)
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-	for (auto row : grid)
+	for (auto row : currentGen)
 	{
 		for (Cell cell : row)
 		{
@@ -190,7 +188,7 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-	for (auto& row : grid)
+	for (auto& row : currentGen)
 	{
 		for(Cell& cell : row)
 		{

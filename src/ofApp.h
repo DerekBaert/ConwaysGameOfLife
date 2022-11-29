@@ -3,8 +3,10 @@
 #include "ofMain.h"
 #include "Cell.h"
 #include "Coordinates.h"
-#include "Intersection.h"
 #include "RectangleSize.h"
+#include "ofxCenteredTrueTypeFont.h"
+#include "enum.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -39,15 +41,19 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		std::vector<std::vector<Cell>> grid;
+		std::vector<std::vector<Cell>> currentGen;
+		std::vector<std::vector<Cell>> nextGen;
+
 		int columns{};
 		int rows{};
+		int generationCount;
+		int headerBuffer;
 
 		float width = ofGetWidth();
-		float height = ofGetHeight();
+		float height = ofGetHeight() - 50;
 		float gridWidth;
 		float gridHeight;
 		bool start = false;
-		vector<Intersection> toggleList;
+		ofxCenteredTrueTypeFont generation;
 		
 };
