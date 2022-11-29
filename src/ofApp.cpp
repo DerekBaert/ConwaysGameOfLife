@@ -3,9 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-	ofSetFrameRate(4);
+	
 	ofSetBackgroundColor(255);
 	ofSetColor(0);
+	frameSlider.setup("Frame rate: ", 1, 1, 4, 125, 15);
+	frameSlider.setPosition(width - 175, 10);
 	generation.loadFont("pixel2.ttf", 15);
 	rows = 50;
 	columns = 50;
@@ -32,7 +34,7 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	
+	ofSetFrameRate(frameSlider);
 	nextGen = currentGen;
 	if(start)
 	{
@@ -53,6 +55,30 @@ void ofApp::update()
 		generationCount++;
 	}
 	currentGen = nextGen;
+}
+
+//--------------------------------------------------------------
+void ofApp::draw()
+{
+	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 10);
+	frameSlider.draw();
+	for (auto row : currentGen)
+	{
+		for (Cell cell : row)
+		{
+			ofSetColor(0, 0, 0);
+			ofRectangle cellRect{ cell.getRectangle() };
+			if (cell.isAlive())
+			{
+				ofFill();
+			}
+			else
+			{
+				ofNoFill();
+			}
+			cell.drawCell();
+		}
+	}
 }
 
 void ofApp::killCheck(int row, int column)
@@ -137,28 +163,7 @@ int ofApp::checkNeighbours(int row, int column)
 
 }
 
-//--------------------------------------------------------------
-void ofApp::draw()
-{
-	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 10);
-	for (auto row : currentGen)
-	{
-		for (Cell cell : row)
-		{
-			ofSetColor(0, 0, 0);
-			ofRectangle cellRect{ cell.getRectangle() };
-			if (cell.isAlive())
-			{
-				ofFill();
-			}
-			else
-			{
-				ofNoFill();
-			}
-			cell.drawCell();
-		}
-	}
-}
+
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)

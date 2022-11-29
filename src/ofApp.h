@@ -6,6 +6,7 @@
 #include "RectangleSize.h"
 #include "ofxCenteredTrueTypeFont.h"
 #include "enum.h"
+#include "ofxGui.h"
 
 
 class ofApp : public ofBaseApp{
@@ -55,5 +56,7 @@ class ofApp : public ofBaseApp{
 		float gridHeight;
 		bool start = false;
 		ofxCenteredTrueTypeFont generation;
+
+		ofxSlider<int> frameSlider;
 		
 };
