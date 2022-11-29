@@ -3,6 +3,7 @@
 #include "Coordinates.h"
 #include "RectangleSize.h"
 #include "enum.h"
+#include "ofColor.h"
 
 BETTER_ENUM(State, int, Alive, Dead);
 
@@ -20,7 +21,7 @@ public:
 	/// Getters
 	/// </summary>
 	void deadAliveToggle();
-	void drawCell();
+	void drawCell(ofColor color);
 
 	/// <summary>
 	/// Getters

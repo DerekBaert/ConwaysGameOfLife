@@ -6,6 +6,7 @@
 #include "RectangleSize.h"
 #include "ofxCenteredTrueTypeFont.h"
 #include "enum.h"
+#include "ofxGui.h"
 
 
 class ofApp : public ofBaseApp{
@@ -19,10 +20,7 @@ class ofApp : public ofBaseApp{
 		void draw();
 
 		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
+		void mousePressed(int x, int y, int button);;
 
 		/**
 		 * \brief Checks if the mouse is over the given cell
@@ -33,13 +31,6 @@ class ofApp : public ofBaseApp{
 		 * \return 
 		 */
 		bool mouseInBounds(float x, float y, float width, float height);
-
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
 
 		std::vector<std::vector<Cell>> currentGen;
 		std::vector<std::vector<Cell>> nextGen;
@@ -55,5 +46,7 @@ class ofApp : public ofBaseApp{
 		float gridHeight;
 		bool start = false;
 		ofxCenteredTrueTypeFont generation;
-		
+	
+		ofxSlider<int> frameSlider;
+		ofxColorSlider colorSlider;
 };

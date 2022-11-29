@@ -3,13 +3,20 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-	ofSetFrameRate(4);
+	
 	ofSetBackgroundColor(255);
-	generation.loadFont("pixel2.ttf", 20);
+	//ofSetColor(0);
+	frameSlider.setup("Frame rate: ", 1, 1, 4, 125, 15);
+	frameSlider.setPosition(width - (frameSlider.getWidth() + 10), 10);
+	ofParameter<ofColor> color;
+	colorSlider.setup("Cell Color", ofColor(50, 50, 50), ofColor(0, 0), ofColor(200, 200));
+	colorSlider.setWidthElements(125);
+	colorSlider.setPosition(width - (colorSlider.getWidth() + 10), 25);
+	generation.load("pixel2.ttf", 15);
 	rows = 50;
 	columns = 50;
 	headerBuffer = 50;
-	generationCount = 0;
+	generationCount = 1;
 	gridWidth = width / columns;
 	gridHeight = height / rows;
 	RectangleSize cellSize{ gridHeight, gridWidth };
@@ -31,7 +38,7 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	generation.drawStringCentered("Generation" + std::to_string(generationCount), 20, 10);
+	ofSetFrameRate(frameSlider);
 	nextGen = currentGen;
 	if(start)
 	{
@@ -52,6 +59,31 @@ void ofApp::update()
 		generationCount++;
 	}
 	currentGen = nextGen;
+}
+
+//--------------------------------------------------------------
+void ofApp::draw()
+{
+	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 10);
+	frameSlider.draw();
+	colorSlider.draw();
+	for (auto row : currentGen)
+	{
+		for (Cell cell : row)
+		{
+			ofRectangle cellRect{ cell.getRectangle() };
+			if (cell.isAlive())
+			{
+				ofFill();
+			}
+			else
+			{
+				ofNoFill();
+			}
+			cell.drawCell(colorSlider);
+		}
+	}
+	ofSetColor(0);
 }
 
 void ofApp::killCheck(int row, int column)
@@ -136,27 +168,7 @@ int ofApp::checkNeighbours(int row, int column)
 
 }
 
-//--------------------------------------------------------------
-void ofApp::draw()
-{
-	for (auto row : currentGen)
-	{
-		for (Cell cell : row)
-		{
-			ofSetColor(0, 0, 0);
-			ofRectangle cellRect{ cell.getRectangle() };
-			if (cell.isAlive())
-			{
-				ofFill();
-			}
-			else
-			{
-				ofNoFill();
-			}
-			cell.drawCell();
-		}
-	}
-}
+
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
@@ -165,24 +177,6 @@ void ofApp::keyPressed(int key)
 	{
 		start = !start;
 	}
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y )
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button)
-{
-
 }
 
 //--------------------------------------------------------------
@@ -205,40 +199,4 @@ void ofApp::mousePressed(int x, int y, int button)
 bool ofApp::mouseInBounds(float x, float y, float width, float height)
 {
 	return ofGetMouseX() > x && ofGetMouseX() < (x + width) && ofGetMouseY() > y && ofGetMouseY() < (y + height);
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg)
-{
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo)
-{ 
-
 }
