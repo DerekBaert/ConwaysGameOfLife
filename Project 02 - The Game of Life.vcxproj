@@ -180,6 +180,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="guiManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="src\Cell.cpp" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enum.h" />
+    <ClInclude Include="guiManager.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\Cell.h" />
     <ClInclude Include="src\Coordinates.h" />

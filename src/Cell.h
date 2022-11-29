@@ -28,7 +28,7 @@ public:
 	/// </summary>
 	bool isAlive();
 	ofRectangle getRectangle();
-	
+	void reset();
 
 };
 

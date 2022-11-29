@@ -46,6 +46,9 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
+    <ClCompile Include="guiManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -117,6 +120,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="enum.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="guiManager.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

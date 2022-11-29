@@ -24,7 +24,6 @@ void Cell::deadAliveToggle()
 
 void Cell::drawCell(ofColor color)
 {
-
 	ofSetColor(color); // Fill color
 	ofDrawRectangle(mRectangle);
 
@@ -53,4 +52,9 @@ bool Cell::isAlive()
 ofRectangle Cell::getRectangle()
 {
 	return mRectangle;
+}
+
+void Cell::reset()
+{
+	status = State::Dead;
 }

@@ -7,19 +7,20 @@
 #include "ofxCenteredTrueTypeFont.h"
 #include "enum.h"
 #include "ofxGui.h"
+#include "guiManager.h"
 
 
 class ofApp : public ofBaseApp{
 
 	public:
+	void generateGrid();
+	void createGui();
 		void setup();
 		void update();
 		void killCheck(int row, int column);
 		void reviveCheck(int row, int column);
 		int  checkNeighbours(int row, int column);
 		void draw();
-
-		void keyPressed(int key);
 		void mousePressed(int x, int y, int button);;
 
 		/**
@@ -31,6 +32,14 @@ class ofApp : public ofBaseApp{
 		 * \return 
 		 */
 		bool mouseInBounds(float x, float y, float width, float height);
+		void resetGame();
+		void playPause();
+		void randomizeCells();
+		void stepThrough();
+		void incrementColumns();
+		void incrementRows();
+		void decrementColumns();
+		void decrementRows();
 
 		std::vector<std::vector<Cell>> currentGen;
 		std::vector<std::vector<Cell>> nextGen;
@@ -49,4 +58,14 @@ class ofApp : public ofBaseApp{
 	
 		ofxSlider<int> frameSlider;
 		ofxColorSlider colorSlider;
+
+		ofxButton reset;
+		ofxButton play;
+		ofxButton randomize;
+		ofxButton nextFrame;
+		ofxButton addColumn;
+		ofxButton addRow;
+		ofxButton removeColumn;
+		ofxButton removeRow;
+		std::vector<ofxButton> buttons;
 };
