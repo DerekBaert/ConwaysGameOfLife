@@ -27,7 +27,7 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 10);
+	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 20);
 	frameSlider.draw();
 	colorSlider.draw();
 
@@ -182,67 +182,41 @@ void ofApp::randomizeCells()
 
 void ofApp::stepThrough()
 {
-	if(!start)
-	{
-		determineNextGeneration();
-		drawGrid();
-	}
-	else
-	{
-		displayError("Program must be paused.");
-	}
+	start = false;
+	determineNextGeneration();
+	drawGrid();
 }
 void ofApp::incrementColumns()
 {
-	if(!start)
-	{
-		columns++;
-		generateGrid();
-		drawGrid();
-	}
-	else
-	{
-		displayError("Program must be paused.");
-	}
+	start = false;
+	resetGame();
+	columns++;
+	generateGrid();
+	drawGrid();
 }
 void ofApp::incrementRows()
 {
-	if (!start)
-	{
-		rows++;
-		generateGrid();
-		drawGrid();
-	}
-	else
-	{
-		displayError("Program must be paused.");
-	}
+	start = false;
+	resetGame();
+	columns++;
+	generateGrid();
+	drawGrid();
 }
 void ofApp::decrementColumns()
 {
-	if (!start)
-	{
-		columns--;
-		generateGrid();
-		drawGrid();
-	}
-	else
-	{
-		displayError("Program must be paused.");
-	}
+	start = false;
+	resetGame();
+	columns++;
+	generateGrid();
+	drawGrid();
 }
 void ofApp::decrementRows()
 {
-	if (!start)
-	{
-		rows--;
-		generateGrid();
-		drawGrid();
-	}
-	else
-	{
-		displayError("Program must be paused.");
-	}
+	start = false;
+	resetGame();
+	columns++;
+	generateGrid();
+	drawGrid();
 }
 
 void ofApp::generateGrid()
@@ -278,7 +252,7 @@ void ofApp::createGui()
 	colorSlider.setWidthElements(125);
 	colorSlider.setPosition(width - (colorSlider.getWidth() + 10), 25);
 
-	int buttonWidth = 125;
+	int buttonWidth = 175;
 	int buttonHeight = 15;
 
 	// Setting up buttons
@@ -289,22 +263,22 @@ void ofApp::createGui()
 	reset.setup("Reset", buttonWidth, buttonHeight);
 
 	randomize.addListener(this, &ofApp::randomizeCells);
-	randomize.setup("Randomize", buttonWidth, buttonHeight);
+	randomize.setup("Randomize/Reset", buttonWidth, buttonHeight);
 
 	nextFrame.addListener(this, &ofApp::stepThrough);
 	nextFrame.setup("Next Frame", buttonWidth, buttonHeight);
 
 	addColumn.addListener(this, &ofApp::incrementColumns);
-	addColumn.setup("Add  Column", buttonWidth, buttonHeight);
+	addColumn.setup("Add  Column/Reset", buttonWidth, buttonHeight);
 
 	addRow.addListener(this, &ofApp::incrementRows);
-	addRow.setup("Add Row", buttonWidth, buttonHeight);
+	addRow.setup("Add Row/Reset", buttonWidth, buttonHeight);
 
 	removeColumn.addListener(this, &ofApp::decrementColumns);
-	removeColumn.setup("Remove Column", buttonWidth, buttonHeight);
+	removeColumn.setup("Remove Column/Reset", buttonWidth, buttonHeight);
 
 	removeRow.addListener(this, &ofApp::decrementRows);
-	removeRow.setup("Remove Row", buttonWidth, buttonHeight);
+	removeRow.setup("Remove Row/Reset", buttonWidth, buttonHeight);
 
 	// Placing buttons in array to loop through for setting position and color
 	buttons.push_back({play,randomize,addColumn,removeColumn});
@@ -313,7 +287,7 @@ void ofApp::createGui()
 	int y = 5;
 	for(auto& row : buttons)
 	{
-		int x = 200;
+		int x = 175;
 		for(ofxButton& button:  row)
 		{
 			button.setPosition(x, y);
@@ -321,7 +295,7 @@ void ofApp::createGui()
 			button.setBorderColor(0);
 			button.setTextColor(0);
 
-			x += 135;
+			x += 176;
 		}
 		y += 20;
 	}
