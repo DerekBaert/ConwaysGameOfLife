@@ -32,11 +32,13 @@ void ofApp::draw()
 	colorSlider.draw();
 
 	// Draw buttons
-	for(ofxButton& button : buttons)
+	for (auto& row : buttons)
 	{
-		button.draw();
+		for (ofxButton& button : row)
+		{
+			button.draw();
+		}
 	}
-	//play.draw();
 
 	drawGrid();
 }
@@ -278,54 +280,51 @@ void ofApp::createGui()
 
 	int buttonWidth = 125;
 	int buttonHeight = 15;
+
 	// Setting up buttons
 	play.addListener(this, &ofApp::playPause);
 	play.setup("Play/Pause", buttonWidth, buttonHeight);
-	play.setPosition(200, 5);
-	buttons.push_back(play);
 
 	reset.addListener(this, &ofApp::resetGame);
 	reset.setup("Reset", buttonWidth, buttonHeight);
-	reset.setPosition(200, 25);
-	buttons.push_back(reset);
 
 	randomize.addListener(this, &ofApp::randomizeCells);
 	randomize.setup("Randomize", buttonWidth, buttonHeight);
-	randomize.setPosition(335, 5);
-	buttons.push_back(randomize);
 
 	nextFrame.addListener(this, &ofApp::stepThrough);
 	nextFrame.setup("Next Frame", buttonWidth, buttonHeight);
-	nextFrame.setPosition(335, 25);
-	buttons.push_back(nextFrame);
 
 	addColumn.addListener(this, &ofApp::incrementColumns);
 	addColumn.setup("Add  Column", buttonWidth, buttonHeight);
-	addColumn.setPosition(470, 5);
-	buttons.push_back(addColumn);
 
 	addRow.addListener(this, &ofApp::incrementRows);
 	addRow.setup("Add Row", buttonWidth, buttonHeight);
-	addRow.setPosition(470, 25);
-	buttons.push_back(addRow);
 
 	removeColumn.addListener(this, &ofApp::decrementColumns);
 	removeColumn.setup("Remove Column", buttonWidth, buttonHeight);
-	removeColumn.setPosition(605, 5);
-	buttons.push_back(removeColumn);
 
 	removeRow.addListener(this, &ofApp::decrementRows);
 	removeRow.setup("Remove Row", buttonWidth, buttonHeight);
-	removeRow.setPosition(605, 25);
-	buttons.push_back(removeRow);
-	
-	for(ofxButton button : buttons)
-	{
-		button.setBackgroundColor(255);
-		button.setBorderColor(0);
-		button.setTextColor(0);
-	}
 
+	// Placing buttons in array to loop through for setting position and color
+	buttons.push_back({play,randomize,addColumn,removeColumn});
+	buttons.push_back({ reset,nextFrame,addRow, removeRow });
+
+	int y = 5;
+	for(auto& row : buttons)
+	{
+		int x = 200;
+		for(ofxButton& button:  row)
+		{
+			button.setPosition(x, y);
+			button.setBackgroundColor(255);
+			button.setBorderColor(0);
+			button.setTextColor(0);
+
+			x += 135;
+		}
+		y += 20;
+	}
 	generation.load("pixel2.ttf", 15);
 }
 

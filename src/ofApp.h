@@ -70,5 +70,5 @@ class ofApp : public ofBaseApp{
 		ofxButton addRow;
 		ofxButton removeColumn;
 		ofxButton removeRow;
-		std::vector<ofxButton> buttons;
+		std::vector< std::vector<ofxButton>> buttons;
 };
