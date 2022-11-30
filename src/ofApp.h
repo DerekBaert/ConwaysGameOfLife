@@ -16,6 +16,8 @@ class ofApp : public ofBaseApp{
 		void generateGrid();
 		void createGui();
 		void setup();
+		void determineNextGeneration();
+		void displayError(std::string message);
 		void update();
 		void drawGrid();
 		void killCheck(int row, int column);
@@ -45,8 +47,8 @@ class ofApp : public ofBaseApp{
 		std::vector<std::vector<Cell>> currentGen;
 		std::vector<std::vector<Cell>> nextGen;
 
-		int columns{};
-		int rows{};
+		int columns = 50;
+		int rows = 50;
 		int generationCount;
 		int headerBuffer;
 

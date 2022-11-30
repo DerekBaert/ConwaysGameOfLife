@@ -19,23 +19,9 @@ void ofApp::update()
 	nextGen = currentGen;
 	if(start)
 	{
-		for (int i = 0; i < rows; i++)
-		{
-			for (int j = 0; j < columns; j++)
-			{
-				if (currentGen[i][j].isAlive())
-				{
-					killCheck(i, j);
-				}
-				else
-				{
-					reviveCheck(i, j);
-				}
-			}
-		}
-		generationCount++;
+		determineNextGeneration();
 	}
-	currentGen = nextGen;
+	
 }
 
 //--------------------------------------------------------------
@@ -194,7 +180,15 @@ void ofApp::randomizeCells()
 
 void ofApp::stepThrough()
 {
-	
+	if(!start)
+	{
+		determineNextGeneration();
+		drawGrid();
+	}
+	else
+	{
+		displayError("Program must be paused.");
+	}
 }
 void ofApp::incrementColumns()
 {
@@ -203,6 +197,10 @@ void ofApp::incrementColumns()
 		columns++;
 		generateGrid();
 		drawGrid();
+	}
+	else
+	{
+		displayError("Program must be paused.");
 	}
 }
 void ofApp::incrementRows()
@@ -213,6 +211,10 @@ void ofApp::incrementRows()
 		generateGrid();
 		drawGrid();
 	}
+	else
+	{
+		displayError("Program must be paused.");
+	}
 }
 void ofApp::decrementColumns()
 {
@@ -221,6 +223,10 @@ void ofApp::decrementColumns()
 		columns--;
 		generateGrid();
 		drawGrid();
+	}
+	else
+	{
+		displayError("Program must be paused.");
 	}
 }
 void ofApp::decrementRows()
@@ -231,13 +237,15 @@ void ofApp::decrementRows()
 		generateGrid();
 		drawGrid();
 	}
+	else
+	{
+		displayError("Program must be paused.");
+	}
 }
 
 void ofApp::generateGrid()
 {
 	// Setting amount of rows and columns;
-	rows = 50;
-	columns = 50;
 	headerBuffer = 50;
 	generationCount = 1;
 	gridWidth = width / columns;
@@ -340,4 +348,29 @@ void ofApp::drawGrid()
 		}
 	}
 	ofSetColor(0);
+}
+
+void ofApp::determineNextGeneration()
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			if (currentGen[i][j].isAlive())
+			{
+				killCheck(i, j);
+			}
+			else
+			{
+				reviveCheck(i, j);
+			}
+		}
+	}
+	generationCount++;
+	currentGen = nextGen;
+}
+
+void ofApp::displayError(std::string message)
+{
+	ofDrawBitmapString(message, 200, 5);
 }
