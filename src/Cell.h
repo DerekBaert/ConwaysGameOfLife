@@ -15,19 +15,39 @@ class Cell
 	State status;
 
 public:
+	/**
+	 * \brief Creates cell to be drawn to canvas
+	 * \param coordinates Location to draw cell
+	 * \param size Size of cell
+	 */
 	Cell(Coordinates coordinates, RectangleSize size);
 
-	/// <summary>
-	/// Getters
-	/// </summary>
+	/**
+	 * \brief Toggles the cell between dead and alive states
+	 */
 	void deadAliveToggle();
+
+	/**
+	 * \brief Draws the cell to the canvas
+	 * \param color Color to draw the cell
+	 */
 	void drawCell(ofColor color);
 
-	/// <summary>
-	/// Getters
-	/// </summary>
+	/**
+	 * \brief Gets the state of the cell
+	 * \return True if cell is alive, false if not.
+	 */
 	bool isAlive();
+
+	/**
+	 * \brief Gets the rectangle being drawn to the canvas.
+	 * \return ofRectangle being drawn to the canvas.
+	 */
 	ofRectangle getRectangle();
+
+	/**
+	 * \brief Resets the cell to default state (dead)
+	 */
 	void reset();
 
 };
