@@ -1,11 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Cell.h"
-#include "Coordinates.h"
-#include "RectangleSize.h"
 #include "ofxCenteredTrueTypeFont.h"
-#include "enum.h"
 #include "generationManager.h"
 #include "ofxGui.h"
 
