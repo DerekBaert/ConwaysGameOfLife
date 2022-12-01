@@ -16,10 +16,10 @@ void ofApp::setup()
 void ofApp::update()
 {
 	ofSetFrameRate(frameSlider);
-	nextGen = currentGen;
+	//nextGen = currentGen;
 	if(start)
 	{
-		determineNextGeneration();
+		generationManager.determineNextGeneration();
 	}
 	
 }
@@ -27,6 +27,7 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+	ofColor cellColor { colorSlider };
 	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 20);
 	frameSlider.draw();
 	colorSlider.draw();
@@ -40,122 +41,20 @@ void ofApp::draw()
 		}
 	}
 
-	drawGrid();
+	generationManager.drawGrid(cellColor);
+	//drawGrid();
 }
 
-void ofApp::killCheck(int row, int column)
-{
-	int liveNeighbours = checkNeighbours(row, column);
-
-	if ((liveNeighbours < 2 || liveNeighbours > 3) && currentGen[row][column].isAlive())
-	{
-		nextGen[row][column].deadAliveToggle();
-	}
-}
-
-
-void ofApp::reviveCheck(int row, int column)
-{
-	int liveNeighbours = checkNeighbours(row, column);
-
-	if(liveNeighbours == 3 && !currentGen[row][column].isAlive())
-	{
-		nextGen[row][column].deadAliveToggle();
-	}
-}
-
-int ofApp::checkNeighbours(int row, int column)
-{
-	int liveNeighbours = 0;
-
-	// Check if there is a row above the cell
-	if(row - 1 >= 0)
-	{
-		// NW
-		// Checking if there is a column to the west or if we are at the beginning
-		if (column - 1 >= 0)
-		{
-			liveNeighbours += currentGen[row - 1][column - 1].isAlive() ? 1 : 0;
-		}
-
-		// N
-		liveNeighbours += currentGen[row - 1][column].isAlive() ? 1 : 0;
-
-		// NE
-		// Checking if there is a column to the east or if we are at the end.
-		if (column + 1 < columns)
-		{
-			liveNeighbours += currentGen[row - 1][column + 1].isAlive() ? 1 : 0;
-		}
-	}	
-
-	// W
-	if (column - 1 >= 0)
-	{
-		liveNeighbours += currentGen[row][column - 1].isAlive() ? 1 : 0;
-	}
-
-
-	// E
-	if (column + 1 < columns)
-	{
-		liveNeighbours += currentGen[row][column + 1].isAlive() ? 1 : 0;
-	}
-
-	// Check if there is a row below the cell
-	if (row + 1 < rows)
-	{
-		// SW
-		if (column - 1 >= 0)
-		{
-			liveNeighbours += currentGen[row + 1][column - 1].isAlive() ? 1 : 0;
-		}
-
-		// S
-		liveNeighbours += currentGen[row + 1][column].isAlive() ? 1 : 0;
-
-		// SE
-		if (column + 1 < columns)
-		{
-			liveNeighbours += currentGen[row + 1][column + 1].isAlive() ? 1 : 0;
-		}
-	}
-
-	return liveNeighbours;
-
-}
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-	for (auto& row : currentGen)
-	{
-		for(Cell& cell : row)
-		{
-			ofRectangle cellRect{ cell.getRectangle() };
-			if (mouseInBounds(cellRect.x, cellRect.y, cellRect.width, cellRect.height))
-			{
-				cell.deadAliveToggle();
-				break;
-			}
-		}
-	}
-}
-
-bool ofApp::mouseInBounds(float x, float y, float width, float height)
-{
-	return ofGetMouseX() > x && ofGetMouseX() < (x + width) && ofGetMouseY() > y && ofGetMouseY() < (y + height);
+	generationManager.mouseClicked(x, y);
 }
 
 void ofApp::resetGame()
 {
-	for (auto& row : currentGen)
-	{
-		for (Cell& cell : row)
-		{
-			cell.reset();
-		}
-	}
+	generationManager.reset();
 	generationCount = 1;
 }
 
@@ -325,22 +224,7 @@ void ofApp::drawGrid()
 
 void ofApp::determineNextGeneration()
 {
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < columns; j++)
-		{
-			if (currentGen[i][j].isAlive())
-			{
-				killCheck(i, j);
-			}
-			else
-			{
-				reviveCheck(i, j);
-			}
-		}
-	}
 	generationCount++;
-	currentGen = nextGen;
 }
 
 void ofApp::displayError(std::string message)

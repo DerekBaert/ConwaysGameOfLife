@@ -6,8 +6,8 @@
 #include "RectangleSize.h"
 #include "ofxCenteredTrueTypeFont.h"
 #include "enum.h"
+#include "generationManager.h"
 #include "ofxGui.h"
-#include "guiManager.h"
 
 
 class ofApp : public ofBaseApp{
@@ -44,12 +44,14 @@ class ofApp : public ofBaseApp{
 		void decrementColumns();
 		void decrementRows();
 
+		generationManager generationManager = { 50, 50, static_cast<float>(ofGetWidth()), static_cast<float>(ofGetHeight() - 50) };
+
 		std::vector<std::vector<Cell>> currentGen;
 		std::vector<std::vector<Cell>> nextGen;
 
 		int columns = 50;
 		int rows = 50;
-		int generationCount;
+		int generationCount = 1;
 		int headerBuffer;
 
 		float width = ofGetWidth();
