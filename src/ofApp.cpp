@@ -1,15 +1,10 @@
 #include "ofApp.h"
 
-
-
 //--------------------------------------------------------------
 void ofApp::setup()
 {	
 	ofSetBackgroundColor(255);
-
 	createGui();
-
-	generateGrid();
 }
 
 //--------------------------------------------------------------
@@ -20,14 +15,14 @@ void ofApp::update()
 	if(start)
 	{
 		generationManager.determineNextGeneration();
-	}
-	
+		generationCount++;
+	}	
 }
 
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-	ofColor cellColor { colorSlider };
+	cellColor = colorSlider;
 	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 20);
 	frameSlider.draw();
 	colorSlider.draw();
@@ -40,11 +35,8 @@ void ofApp::draw()
 			button.draw();
 		}
 	}
-
 	generationManager.drawGrid(cellColor);
-	//drawGrid();
 }
-
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
@@ -65,81 +57,53 @@ void ofApp::playPause()
 
 void ofApp::randomizeCells()
 {
-	for (auto& row : currentGen)
-	{
-		for (Cell& cell : row)
-		{
-			cell.reset();
-			if(ofRandom(100) < 30)
-			{
-				cell.deadAliveToggle();
-			}
-		}
-	}
+	generationManager.randomize();
 	generationCount = 1;
 }
 
 void ofApp::stepThrough()
 {
 	start = false;
-	determineNextGeneration();
-	drawGrid();
+	cellColor = colorSlider;
+	generationManager.determineNextGeneration();
+	generationCount++;
+	generationManager.drawGrid(cellColor);
 }
 void ofApp::incrementColumns()
 {
 	start = false;
-	resetGame();
+	generationManager.reset();
+	cellColor = colorSlider;
 	columns++;
-	generateGrid();
-	drawGrid();
+	generationManager = { rows, columns,  width, height };
+	generationManager.drawGrid(colorSlider);
 }
 void ofApp::incrementRows()
 {
 	start = false;
-	resetGame();
-	columns++;
-	generateGrid();
-	drawGrid();
+	generationManager.reset();
+	cellColor = colorSlider;
+	rows++;
+	generationManager = { rows, columns,  width, height };
+	generationManager.drawGrid(colorSlider);
 }
 void ofApp::decrementColumns()
 {
 	start = false;
-	resetGame();
-	columns++;
-	generateGrid();
-	drawGrid();
+	generationManager.reset();
+	cellColor = colorSlider;
+	columns--;
+	generationManager = { rows, columns,  width, height };
+	generationManager.drawGrid(colorSlider);
 }
 void ofApp::decrementRows()
 {
 	start = false;
-	resetGame();
-	columns++;
-	generateGrid();
-	drawGrid();
-}
-
-void ofApp::generateGrid()
-{
-	// Setting amount of rows and columns;
-	headerBuffer = 50;
-	generationCount = 1;
-	gridWidth = width / columns;
-	gridHeight = height / rows;
-	RectangleSize cellSize{ gridHeight, gridWidth };
-
-	currentGen.clear();
-	for (int y = 0; y < rows; y++)
-	{
-		std::vector<Cell> row;
-		row.reserve(columns);
-		for (int x = 0; x < columns; x++)
-		{
-			Coordinates cellPosition{ x * gridWidth, (y * gridHeight) + headerBuffer };
-			Cell cell{ cellPosition, cellSize };
-			row.push_back(cell);
-		}
-		currentGen.push_back(row);
-	}
+	generationManager.reset();
+	cellColor = colorSlider;
+	rows--;
+	generationManager = { rows, columns,  width, height };
+	generationManager.drawGrid(colorSlider);
 }
 
 void ofApp::createGui()
@@ -199,35 +163,4 @@ void ofApp::createGui()
 		y += 20;
 	}
 	generation.load("pixel2.ttf", 15);
-}
-
-void ofApp::drawGrid()
-{
-	for (auto row : currentGen)
-	{
-		for (Cell cell : row)
-		{
-			ofRectangle cellRect{ cell.getRectangle() };
-			if (cell.isAlive())
-			{
-				ofFill();
-			}
-			else
-			{
-				ofNoFill();
-			}
-			cell.drawCell(colorSlider);
-		}
-	}
-	ofSetColor(0);
-}
-
-void ofApp::determineNextGeneration()
-{
-	generationCount++;
-}
-
-void ofApp::displayError(std::string message)
-{
-	ofDrawBitmapString(message, 200, 5);
 }

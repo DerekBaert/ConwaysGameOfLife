@@ -17,6 +17,7 @@ public:
 	void drawGrid(ofColor cellColor);
 	void mouseClicked(int x, int y);
 	void reset();
+	void randomize();
 
 private:
 	bool mouseInBounds(float x, float y, float width, float height, int mouseX, int mouseY);

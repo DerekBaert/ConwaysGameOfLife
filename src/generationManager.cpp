@@ -1,7 +1,5 @@
 #include "generationManager.h"
 
-#include "ofxInputField.h"
-
 generationManager::generationManager(int rows, int columns, float width, float height) : mRows{rows}, mColumns{columns}
 {
 	// Setting amount of rows and columns;
@@ -66,7 +64,7 @@ int generationManager::checkNeighbours(int row, int column)
 	}
 
 	// Check if there is a row below the cell
-	if (row + 1 < mColumns)
+	if (row + 1 < mRows)
 	{
 		// SW
 		if (column - 1 >= 0)
@@ -171,6 +169,21 @@ void generationManager::reset()
 		for (Cell& cell : row)
 		{
 			cell.reset();
+		}
+	}
+}
+
+void generationManager::randomize()
+{
+	for (auto& row : currentGen)
+	{
+		for (Cell& cell : row)
+		{
+			cell.reset();
+			if (ofRandom(100) < 30)
+			{
+				cell.deadAliveToggle();
+			}
 		}
 	}
 }
