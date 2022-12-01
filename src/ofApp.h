@@ -9,6 +9,8 @@
 #include "generationManager.h"
 #include "ofxGui.h"
 
+// ofxTrueTypeFont: https://github.com/armadillu/ofxCenteredTrueTypeFont/blob/master/src/ofxCenteredTrueTypeFont.h
+// Better Enums:	http://aantron.github.io/better-enums/
 
 class ofApp : public ofBaseApp{
 
