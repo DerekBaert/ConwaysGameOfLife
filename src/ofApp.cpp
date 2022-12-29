@@ -10,9 +10,8 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	ofSetFrameRate(frameSlider);
-	//nextGen = currentGen;
-	if(start)
+	ofSetFrameRate(60);
+	if(start && updateGrid(static_cast<int>(ofGetFrameNum())))
 	{
 		generationManager.determineNextGeneration();
 		generationCount++;
@@ -22,7 +21,6 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-	cellColor = colorSlider;
 	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 20);
 
 	// Draw buttons
@@ -33,7 +31,7 @@ void ofApp::draw()
 			button.draw();
 		}
 	}
-	generationManager.drawGrid(cellColor);
+	generationManager.drawGrid(colorSlider);
 	frameSlider.draw();
 	colorSlider.draw();
 }
@@ -104,6 +102,11 @@ void ofApp::decrementRows()
 	rows--;
 	generationManager = { rows, columns,  width, height };
 	generationManager.drawGrid(colorSlider);
+}
+
+bool ofApp::updateGrid(int frameNum)
+{
+	return frameNum % (60 / frameSlider) == 0;
 }
 
 void ofApp::createGui()

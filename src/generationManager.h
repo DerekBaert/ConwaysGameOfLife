@@ -49,7 +49,7 @@ public:
 	 * \brief Draws collection of cells to the grid.
 	 * \param cellColor Color to fill the cells
 	 */
-	void drawGrid(ofColor cellColor);
+	void drawGrid(const ofColor& cellColor) const;
 
 	/**
 	 * \brief Checks each cell to see if mouse clicked the particular cell.

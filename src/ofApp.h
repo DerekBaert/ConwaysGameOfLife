@@ -79,11 +79,17 @@ class ofApp : public ofBaseApp{
 	 */
 	void decrementRows();
 
+	/**
+	 * \brief Checks if the current frame is valid for updating the grid.
+	 * \return True if the frame is valid for updating the grid
+	 */
+	bool updateGrid(int frameNum);
+
 		bool start = false;
 		int columns = 50;
 		int rows = 50;
-		float width = ofGetWidth();
-		float height = ofGetHeight() - 50;
+		const float width = ofGetWidth();
+		const float height = ofGetHeight() - 50;
 
 		generationManager generationManager = { rows, columns, width, height };
 		int generationCount = 1;
@@ -102,4 +108,5 @@ class ofApp : public ofBaseApp{
 		ofxButton removeColumn;
 		ofxButton removeRow;
 		std::vector< std::vector<ofxButton>> buttons;
+
 };

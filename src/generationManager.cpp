@@ -125,7 +125,7 @@ void generationManager::determineNextGeneration()
 	currentGen = nextGen;
 }
 
-void generationManager::drawGrid(ofColor cellColor)
+void generationManager::drawGrid(const ofColor& cellColor) const
 {
 	for (auto row : currentGen)
 	{
