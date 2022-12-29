@@ -75,6 +75,7 @@ void ofApp::incrementColumns()
 	columns++;
 	generationManager = { rows, columns,  width, height };
 	generationManager.drawGrid(colorSlider);
+	generationCount = 1;
 }
 void ofApp::incrementRows()
 {
@@ -84,6 +85,7 @@ void ofApp::incrementRows()
 	rows++;
 	generationManager = { rows, columns,  width, height };
 	generationManager.drawGrid(colorSlider);
+	generationCount = 1;
 }
 void ofApp::decrementColumns()
 {
@@ -93,6 +95,7 @@ void ofApp::decrementColumns()
 	columns--;
 	generationManager = { rows, columns,  width, height };
 	generationManager.drawGrid(colorSlider);
+	generationCount = 1;
 }
 void ofApp::decrementRows()
 {
@@ -102,6 +105,7 @@ void ofApp::decrementRows()
 	rows--;
 	generationManager = { rows, columns,  width, height };
 	generationManager.drawGrid(colorSlider);
+	generationCount = 1;
 }
 
 bool ofApp::updateGrid(int frameNum)
