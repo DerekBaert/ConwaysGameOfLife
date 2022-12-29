@@ -15,6 +15,7 @@ class ofApp : public ofBaseApp{
 	 * \brief Creates GUI elements to be drawn on canvas.
 	 */
 	void createGui();
+
 	/**
 	 * \brief Sets up application.
 	 */

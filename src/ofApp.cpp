@@ -24,8 +24,6 @@ void ofApp::draw()
 {
 	cellColor = colorSlider;
 	generation.drawStringCentered("Generation: " + std::to_string(generationCount), 75, 20);
-	frameSlider.draw();
-	colorSlider.draw();
 
 	// Draw buttons
 	for (auto& row : buttons)
@@ -36,6 +34,8 @@ void ofApp::draw()
 		}
 	}
 	generationManager.drawGrid(cellColor);
+	frameSlider.draw();
+	colorSlider.draw();
 }
 
 //--------------------------------------------------------------
