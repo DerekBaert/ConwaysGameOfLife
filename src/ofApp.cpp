@@ -44,6 +44,7 @@ void ofApp::mousePressed(int x, int y, int button)
 
 void ofApp::resetGame()
 {
+	start = false;
 	generationManager.reset();
 	generationCount = 1;
 }
