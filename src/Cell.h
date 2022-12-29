@@ -31,7 +31,7 @@ public:
 	 * \brief Draws the cell to the canvas
 	 * \param color Color to draw the cell
 	 */
-	void drawCell(ofColor color);
+	void drawCell(ofColor color) const;
 
 	/**
 	 * \brief Gets the state of the cell
@@ -43,7 +43,7 @@ public:
 	 * \brief Gets the rectangle being drawn to the canvas.
 	 * \return ofRectangle being drawn to the canvas.
 	 */
-	ofRectangle getRectangle();
+	ofRectangle getRectangle() const;
 
 	/**
 	 * \brief Resets the cell to default state (dead)

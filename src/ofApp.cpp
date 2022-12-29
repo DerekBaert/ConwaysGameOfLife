@@ -122,8 +122,8 @@ void ofApp::createGui()
 	colorSlider.setWidthElements(125);
 	colorSlider.setPosition(width - (colorSlider.getWidth() + 10), 25);
 
-	int buttonWidth = 175;
-	int buttonHeight = 15;
+	constexpr int buttonWidth = 175;
+	constexpr int buttonHeight = 15;
 
 	// Setting up buttons
 	play.addListener(this, &ofApp::playPause);

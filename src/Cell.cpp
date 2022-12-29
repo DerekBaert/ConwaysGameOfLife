@@ -22,7 +22,7 @@ void Cell::deadAliveToggle()
 	}
 }
 
-void Cell::drawCell(ofColor color)
+void Cell::drawCell(ofColor color) const
 {
 	ofSetColor(color); // Fill color
 	ofDrawRectangle(mRectangle);
@@ -34,7 +34,7 @@ void Cell::drawCell(ofColor color)
 
 bool Cell::isAlive()
 {
-	bool isAlive;
+	bool isAlive = false;
 	switch(status)
 	{
 		case State::Alive:
@@ -49,7 +49,7 @@ bool Cell::isAlive()
 	return isAlive;
 }
 
-ofRectangle Cell::getRectangle()
+ofRectangle Cell::getRectangle() const
 {
 	return mRectangle;
 }
